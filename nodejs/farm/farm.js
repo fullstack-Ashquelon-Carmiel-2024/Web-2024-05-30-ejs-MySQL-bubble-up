@@ -33,8 +33,8 @@ let figureTempl = fs.readFileSync(
 const app = express();
 
 /***** MIDDLEWARE *****/
-app.use(express.static(path.join(__dirname,'public')));
-app.use('/natalie/farm',express.static(path.join(__dirname,'public')));
+//app.use(express.static(path.join(__dirname,'public')));
+app.use(hostingDir,express.static(path.join(__dirname,'public')));
 
 /***** Router *****/
 app.get(`${hostingDir}/`,(req,res) => {
