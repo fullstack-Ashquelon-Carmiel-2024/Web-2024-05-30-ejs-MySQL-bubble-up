@@ -57,7 +57,7 @@
   {
     "id": 5,
     "productName": "Smooth Mayonaise",
-    "image": "<img src='/assets/img/organic-mayo.png' alt='organic mayo image' class='product-img'>",
+    "image": "<img src='%*HOSTINGDIR*%/assets/img/organic-mayo.png' alt='organic mayo image' class='product-img'>",
     "from": "Israel",
     "nutrients": "Vitamin B, Vitamin D",
     "quantity": "4 🥛",

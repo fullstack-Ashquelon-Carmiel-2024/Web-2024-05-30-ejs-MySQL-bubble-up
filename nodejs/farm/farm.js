@@ -6,9 +6,11 @@ const replaceTempl = require('./modules/replace-templ');
 
 /***** Our Variables *****/
 let port = process.env.PORT ? process.env.PORT : 3051;
+
 let dataDir = 'data';
 let templDir = 'templates';
-let hostingDir = '/natalie/farm';
+let nodeEnv = process.env.NODE_ENV.toLowerCase();
+global.hostingDir =  nodeEnv==='development' ? '' : '/natalie/farm';
 
 /***** Reading the Files *****/
 let dataJSON = fs.readFileSync(path.join(__dirname,dataDir,'data.json'),'utf-8');
@@ -17,9 +19,11 @@ const dataAr = JSON.parse(dataJSON);
 let productTempl = fs.readFileSync(
     path.join(__dirname,templDir,'productTempl.html'),'utf-8');
 let product404Templ = fs.readFileSync(
-    path.join(__dirname,templDir,'404ProductTempl.html'),'utf-8');
+    path.join(__dirname,templDir,'404ProductTempl.html'),'utf-8')
+       .replaceAll('%*HOSTINGDIR*%',hostingDir);
 let homeTempl = fs.readFileSync(
-    path.join(__dirname,templDir,'homeTempl.html'),'utf-8');
+    path.join(__dirname,templDir,'homeTempl.html'),'utf-8')
+        .replaceAll('%*HOSTINGDIR*%',hostingDir);
 let figureTempl = fs.readFileSync(
     path.join(__dirname,templDir,'figureTempl.html'),'utf-8');
 
@@ -30,9 +34,10 @@ const app = express();
 
 /***** MIDDLEWARE *****/
 app.use(express.static(path.join(__dirname,'public')));
+app.use('/natalie/farm',express.static(path.join(__dirname,'public')));
 
 /***** Router *****/
-app.get(['/',`${hostingDir}/`],(req,res) => {
+app.get(`${hostingDir}/`,(req,res) => {
     
     let figureList = dataAr.map(obj => replaceTempl(figureTempl,obj)).join('');
     res.send(homeTempl.replace('%*FIGURELIST*%',figureList))
@@ -62,7 +67,7 @@ app.get('/carrot',(req,res) => {
     
 })
 
-app.get(['/product/:id',`${hostingDir}/product/:id`],(req,res) => {
+app.get(`${hostingDir}/product/:id`,(req,res) => {
     
     console.log('req.params:\n',req.params)
     let id = req.params.id;

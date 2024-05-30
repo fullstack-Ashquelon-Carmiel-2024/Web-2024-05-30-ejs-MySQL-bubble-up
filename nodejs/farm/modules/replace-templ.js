@@ -29,5 +29,7 @@ module.exports = function(templ, obj) {
 
     newStr = newStr.replaceAll('%*NOTORGANIC*%',obj.organic ? '' : 'not-organic');
 
+    newStr = newStr.replaceAll('%*HOSTINGDIR*%',hostingDir)
+
     return newStr;
 }

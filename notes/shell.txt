@@ -18,6 +18,11 @@ Arrow Up and Arrow Down - shows the command history
 
 Ctrl-C - stops almoust each running process
 
+$ env - general environment variables
+$ export PORT=3002  - created environment variable PORT
+## No spaces around =
+
+$ echo $PORT - shows the value of PORT variable
 -------------------------------------
 HOW DO WE USE A GITHUB LINK TO THE CURRENT LESSON
 -------------------------------------
